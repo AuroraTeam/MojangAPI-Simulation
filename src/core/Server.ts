@@ -22,7 +22,9 @@ export default class Server {
         })
     }
 
-    addRoute(type: string, handler: any) {
-        this.app.use(type, handler)
+    addRoute(type: HandlersTypes, link: string, handler: (request: express.Request, response: express.Response) => void) {
+        this.app[type](link, handler)
     }
 }
+
+type HandlersTypes = 'all' | 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head'

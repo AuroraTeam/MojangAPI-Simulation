@@ -1,3 +1,5 @@
 import Server from "./core/Server"
 
-new Server(4000)
+export default new Server(4000)
+
+import "./requests/sessionServer"
