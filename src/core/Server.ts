@@ -20,6 +20,11 @@ export default class Server {
         this.app.listen(port, () => {
             console.log(`API Server listening at ${port} port`)
         })
+        // For requests debug
+        this.app.use((req, res, next) => {
+            console.log(req.url)
+            next()
+        })
     }
 
     addRoute(type: HandlersTypes, link: string, handler: (request: express.Request, response: express.Response) => void) {
