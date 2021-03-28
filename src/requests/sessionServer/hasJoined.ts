@@ -1,6 +1,6 @@
-import Server from "../../index"
+import Router from "../../index"
 
-Server.addRoute('get', '/session/session/minecraft/hasJoined', (request, response) => {
+Router.addRoute('get', '/session/session/minecraft/hasJoined', (request, response) => {
     // request.params.username
     // request.params.serverId
     // request.params.ip

@@ -1,6 +1,6 @@
-import Server from "../../index"
+import Router from "../../index"
 
-Server.addRoute('post', '/session/session/minecraft/join', (request, response) => {
+Router.addRoute('post', '/session/session/minecraft/join', (request, response) => {
     // Принимаю данные и завожу serverId в строку юзера
     const data = request.body
 
