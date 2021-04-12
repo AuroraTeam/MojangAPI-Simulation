@@ -1,31 +1,7 @@
-import "reflect-metadata"
-import express from "express"
-import cors from "cors"
+import App from './core/main'
+import './core/db'
 
-import Router from "./core/Router"
+export default App
 
-const app = express()
-app.set('trust proxy', true)
-app.disable('x-powered-by')
-app.use(express.json())
-app.use(cors())
+import './requests/sessionServer'
 
-// For requests debug
-app.use((req, _, next) => {
-    console.log(req.url)
-    next()
-})
-
-const router = new Router()
-export default router
-
-import "./requests/sessionServer"
-
-router.routes.forEach((e) => {
-    app[e.method](e.path, e.handler)
-})
-
-const port = 4000
-app.listen(port, () => {
-    console.log(`API Server listening at ${port} port`)
-})
