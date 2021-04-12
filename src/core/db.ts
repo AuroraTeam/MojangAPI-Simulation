@@ -8,15 +8,13 @@ createConnection({
     username: "root",
     password: "root",
     database: "test",
-    entities: [
-        __dirname + "/../entity/*.ts"
-    ],
+    entities: [__dirname + "/../entity/*.ts"],
     synchronize: true,
-    logging: false
-}).then(_ => {
-    console.log("Connection has been established successfully.");
+    logging: false,
 })
-.catch(err => {
-    console.error("Unable to connect to the database:", err);
-});
-
+    .then((_) => {
+        console.log("Connection has been established successfully.");
+    })
+    .catch((err) => {
+        console.error("Unable to connect to the database:", err);
+    });

@@ -7,7 +7,7 @@
     Эмуляция: 
     - https://sessionserver.mojang.com/session/minecraft/join
 */
-import "./sessionServer/join"
+import "./sessionServer/join";
 
 /* 
     =================================================
@@ -18,7 +18,7 @@ import "./sessionServer/join"
     Эмуляция:
     - https://sessionserver.mojang.com/session/minecraft/hasJoined?username=username&serverId=hash&ip=ip
 */
-import "./sessionServer/hasJoined"
+import "./sessionServer/hasJoined";
 
 /* 
     =================================================
@@ -29,4 +29,4 @@ import "./sessionServer/hasJoined"
     Эмуляция:
     - https://sessionserver.mojang.com/session/minecraft/profile/<uuid>
 */
-import "./sessionServer/profile"
+import "./sessionServer/profile";

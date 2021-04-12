@@ -1,11 +1,11 @@
-import App from "../../index"
+import App from "../../index";
 
-App.get('/session/minecraft/hasJoined', (request, response) => {
+App.get("/session/minecraft/hasJoined", (request, response) => {
     // request.params.username
     // request.params.serverId
     // request.params.ip
 
-    response.sendStatus(400)
+    response.sendStatus(400);
 
     // response.json({
     //     "id": "b61ec822-e3d4-56c4-8b19-b0817b927a10",
@@ -26,4 +26,4 @@ App.get('/session/minecraft/hasJoined', (request, response) => {
     //         }
     //     ]
     // })
-})
+});
