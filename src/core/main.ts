@@ -13,11 +13,6 @@ app.use((req, _, next) => {
     next();
 });
 
-// Error handler
-app.use((_err: any, _req: any, res: any, _next: any) => {
-    res.status(400).send({ error: "Invalid data" });
-});
-
 const port = 4000;
 app.listen(port, () => {
     console.log(`API Server listening at ${port} port`);

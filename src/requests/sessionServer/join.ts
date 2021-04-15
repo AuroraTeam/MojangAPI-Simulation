@@ -4,7 +4,6 @@ import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
 
 App.post("/session/minecraft/join", async (request, response) => {
-    // Принимаю данные и завожу serverId в строку юзера
     const data = request.body;
 
     if (
@@ -15,7 +14,7 @@ App.post("/session/minecraft/join", async (request, response) => {
         "string" !== typeof data.serverId ||
         data.serverId.length === 0
     )
-        return response.sendStatus(400);
+        return response.status(400).end();
 
     const userRepository = getRepository(User);
     const user = await userRepository.findOne({
@@ -25,10 +24,10 @@ App.post("/session/minecraft/join", async (request, response) => {
         },
     });
 
-    if (!user) return response.sendStatus(400); // User not found
+    if (!user) return response.status(400).end(); // User not found
 
     user.serverId = data.serverId;
     await userRepository.save(user);
 
-    response.sendStatus(204);
+    response.status(204).end();
 });
