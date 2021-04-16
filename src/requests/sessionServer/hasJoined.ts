@@ -1,6 +1,9 @@
 import { getRepository } from "typeorm";
 import { User } from "../../entity/User";
+import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
+
+// TODO signature
 
 App.get("/session/minecraft/hasJoined", async (request, response) => {
     const data = request.query;
@@ -28,8 +31,10 @@ App.get("/session/minecraft/hasJoined", async (request, response) => {
     });
     if (!user) return response.status(400).end(); // User not found
 
+    const userUUID = UUIDHelper.getWithoutDashes(user.userUUID)
+
     response.json({
-        id: user.userUUID,
+        id: userUUID,
         name: user.username,
         properties: [
             {
@@ -37,8 +42,8 @@ App.get("/session/minecraft/hasJoined", async (request, response) => {
                 value: Buffer.from(
                     JSON.stringify({
                         timestamp: Date.now(),
-                        profileId: user.username,
-                        profileName: user.userUUID,
+                        profileId: userUUID,
+                        profileName: user.username,
                         textures: {
                             SKIN: {
                                 url:

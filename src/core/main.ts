@@ -9,7 +9,7 @@ app.use(cors());
 
 // For requests debug
 app.use((req, _, next) => {
-    console.log(req.url);
+    console.log(`[${req.method}] ${req.url}`);
     next();
 });
 
