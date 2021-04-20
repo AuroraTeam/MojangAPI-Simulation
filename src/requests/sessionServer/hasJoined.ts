@@ -31,7 +31,7 @@ App.get("/session/minecraft/hasJoined", async (request, response) => {
     });
     if (!user) return response.status(400).end(); // User not found
 
-    const userUUID = UUIDHelper.getWithoutDashes(user.userUUID)
+    const userUUID = UUIDHelper.getWithoutDashes(user.userUUID);
 
     response.json({
         id: userUUID,
