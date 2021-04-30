@@ -21,6 +21,12 @@ export class User {
     @Column()
     serverId: string;
 
+    @Column()
+    skinUrl: string;
+
+    @Column()
+    capeUrl: string;
+
     // Privileges
     // MySQL fix https://github.com/typeorm/typeorm/issues/3622
     @Column({ width: 1, default: true })

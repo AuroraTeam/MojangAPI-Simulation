@@ -33,26 +33,31 @@ App.get("/session/minecraft/hasJoined", async (request, response) => {
 
     const userUUID = UUIDHelper.getWithoutDashes(user.userUUID);
 
+    const textures: any = {};
+    if (user.skinUrl.length > 0) {
+        textures.SKIN = {
+            url: user.skinUrl,
+        };
+    }
+    if (user.capeUrl.length > 0) {
+        textures.CAPE = {
+            url: user.capeUrl,
+        };
+    }
+
     response.json({
         id: userUUID,
         name: user.username,
-        properties: [
-            {
-                name: "textures",
-                value: Buffer.from(
-                    JSON.stringify({
-                        timestamp: Date.now(),
-                        profileId: userUUID,
-                        profileName: user.username,
-                        textures: {
-                            SKIN: {
-                                url:
-                                    "http://textures.minecraft.net/texture/7bc6395501fe9296091d995317d1f0578db073ce0e384b52ecd851c6e955aecf",
-                            },
-                        },
-                    })
-                ).toString("base64"),
-            },
-        ],
+        properties: {
+            name: "textures",
+            value: Buffer.from(
+                JSON.stringify({
+                    timestamp: Date.now(),
+                    profileId: userUUID,
+                    profileName: user.username,
+                    textures,
+                })
+            ).toString("base64"),
+        }
     });
 });
