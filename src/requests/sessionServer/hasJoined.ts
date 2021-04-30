@@ -1,5 +1,6 @@
 import { getRepository } from "typeorm";
 import { User } from "../../entity/User";
+import { isInvalidValue } from "../../helpers/isInvalidValue";
 import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
 
@@ -9,10 +10,8 @@ App.get("/session/minecraft/hasJoined", async (request, response) => {
     const data = request.query;
 
     if (
-        "string" !== typeof data.username ||
-        data.username.length === 0 ||
-        "string" !== typeof data.serverId ||
-        data.serverId.length === 0
+        isInvalidValue(data.username) ||
+        isInvalidValue(data.serverId)
     )
         return response.status(400).end();
 

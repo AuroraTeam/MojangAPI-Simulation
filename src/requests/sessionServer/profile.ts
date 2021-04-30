@@ -8,7 +8,7 @@ import App from "../../index";
 App.get("/session/minecraft/profile/:uuid", async (request, response) => {
     const uuid = request.params.uuid;
 
-    if ("string" !== typeof uuid || uuid.length === 0)
+    if (uuid.trim().length === 0)
         return response.status(400).end();
 
     const userRepository = getRepository(User);

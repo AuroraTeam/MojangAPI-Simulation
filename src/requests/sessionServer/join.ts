@@ -1,5 +1,6 @@
 import { getRepository } from "typeorm";
 import { User } from "../../entity/User";
+import { isInvalidValue } from "../../helpers/isInvalidValue";
 import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
 
@@ -7,12 +8,9 @@ App.post("/session/minecraft/join", async (request, response) => {
     const data = request.body;
 
     if (
-        "string" !== typeof data.accessToken ||
-        data.accessToken.length === 0 ||
-        "string" !== typeof data.selectedProfile ||
-        data.selectedProfile.length === 0 ||
-        "string" !== typeof data.serverId ||
-        data.serverId.length === 0
+        isInvalidValue(data.accessToken) ||
+        isInvalidValue(data.selectedProfile) ||
+        isInvalidValue(data.serverId)
     )
         return response.status(400).end();
 
