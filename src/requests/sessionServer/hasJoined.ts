@@ -1,11 +1,10 @@
 import { getRepository } from "typeorm";
+
+import { getSignature } from "../../core/keys";
 import { User } from "../../entity/User";
 import { isInvalidValue } from "../../helpers/isInvalidValue";
 import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
-import crypto from "crypto";
-import path from "path";
-import fs from "fs";
 
 // TODO signature
 
@@ -61,14 +60,7 @@ App.get("/session/minecraft/hasJoined", async (request, response) => {
             {
                 name: "textures",
                 value: texturesValue.toString("base64"),
-                signature: crypto
-                    .privateEncrypt(
-                        fs.readFileSync(
-                            path.join(process.cwd(), "keys/private.pem")
-                        ),
-                        texturesValue
-                    )
-                    .toString("base64"),
+                signature: getSignature(texturesValue),
             },
         ],
     });

@@ -1,11 +1,9 @@
 import { getRepository } from "typeorm";
+
+import { getSignature } from "../../core/keys";
 import { User } from "../../entity/User";
 import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
-import crypto from "crypto";
-import path from "path";
-import fs from "fs";
-import { isInvalidValue } from "../../helpers/isInvalidValue";
 
 // TODO проверка unsigned в запросе
 
@@ -56,14 +54,6 @@ App.get("/session/minecraft/profile/:uuid", async (request, response) => {
     if (signed) texturesValue.signatureRequired = true;
     texturesValue = Buffer.from(JSON.stringify(texturesValue));
     data.properties[0].value = texturesValue.toString("base64");
-
-    if (signed)
-        data.properties[0].signature = crypto
-            .privateEncrypt(
-                fs.readFileSync(path.join(process.cwd(), "keys/private.pem")),
-                texturesValue
-            )
-            .toString("base64");
-
+    if (signed) data.properties[0].signature = getSignature(texturesValue);
     response.json(data);
 });
