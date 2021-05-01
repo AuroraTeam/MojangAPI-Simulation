@@ -3,16 +3,16 @@ import { User } from "../../entity/User";
 import { isInvalidValue } from "../../helpers/isInvalidValue";
 import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
+import crypto from "crypto";
+import path from "path";
+import fs from "fs";
 
 // TODO signature
 
 App.get("/session/minecraft/hasJoined", async (request, response) => {
     const data = request.query;
 
-    if (
-        isInvalidValue(data.username) ||
-        isInvalidValue(data.serverId)
-    )
+    if (isInvalidValue(data.username) || isInvalidValue(data.serverId))
         return response.status(400).end();
 
     // TODO
@@ -44,19 +44,32 @@ App.get("/session/minecraft/hasJoined", async (request, response) => {
         };
     }
 
+    const texturesValue = Buffer.from(
+        JSON.stringify({
+            timestamp: Date.now(),
+            profileId: userUUID,
+            profileName: user.username,
+            signatureRequired: true,
+            textures,
+        })
+    );
+
     response.json({
         id: userUUID,
         name: user.username,
-        properties: {
-            name: "textures",
-            value: Buffer.from(
-                JSON.stringify({
-                    timestamp: Date.now(),
-                    profileId: userUUID,
-                    profileName: user.username,
-                    textures,
-                })
-            ).toString("base64"),
-        }
+        properties: [
+            {
+                name: "textures",
+                value: texturesValue.toString("base64"),
+                signature: crypto
+                    .privateEncrypt(
+                        fs.readFileSync(
+                            path.join(process.cwd(), "keys/private.pem")
+                        ),
+                        texturesValue
+                    )
+                    .toString("base64"),
+            },
+        ],
     });
 });
