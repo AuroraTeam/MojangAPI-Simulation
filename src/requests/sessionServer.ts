@@ -8,7 +8,6 @@
     - https://sessionserver.mojang.com/session/minecraft/join
 */
 import "./sessionServer/join";
-
 /*
     =================================================
     Запрос от сервера при подключении клиента к серверу
@@ -19,7 +18,6 @@ import "./sessionServer/join";
     - https://sessionserver.mojang.com/session/minecraft/hasJoined?username=username&serverId=hash&ip=ip
 */
 import "./sessionServer/hasJoined";
-
 /*
     =================================================
     Запрос от клиента на получение информации о игроке

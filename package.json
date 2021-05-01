@@ -28,9 +28,17 @@
   "devDependencies": {
     "@types/cors": "^2.8.10",
     "@types/express": "^4.17.11",
+    "import-sort-style-module": "^6.0.0",
     "nodemon": "^2.0.7",
-    "prettier": "2.2.1",
+    "prettier": "^2.2.1",
+    "prettier-plugin-import-sort": "0.0.6",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.3"
+  },
+  "importSort": {
+    ".ts": {
+      "style": "module",
+      "parser": "typescript"
+    }
   }
 }
