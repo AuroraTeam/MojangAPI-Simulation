@@ -5,9 +5,9 @@ import path from "path";
 const keysDir = path.join(__dirname, "../../keys");
 const privateKeyPath = path.join(keysDir, "private.pem");
 
-if (fs.existsSync(privateKeyPath)) {
-    console.log("Keys exists, skip generate");
-} else {
+export function generateKeys(): void {
+    if (fs.existsSync(privateKeyPath)) return console.log("Keys exists, skip generate");
+
     if (!fs.existsSync(keysDir)) fs.mkdirSync(keysDir);
     crypto.generateKeyPair(
         "rsa",

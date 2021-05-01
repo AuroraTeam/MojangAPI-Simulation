@@ -1,0 +1,3 @@
+[submodule "authlib"]
+	path = authlib
+	url = https://github.com/AuroraTeam/Authlib-Aurora

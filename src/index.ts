@@ -1,8 +1,10 @@
+import "./core/db";
+
 import App from "./core/main";
 export default App;
 
-import "./core/keys";
-import "./core/db";
+import { generateKeys } from "./core/keys";
+generateKeys();
 
 import "./requests/sessionServer";
 import "./requests/servicesServer";
