@@ -6,8 +6,6 @@ import { isInvalidValue } from "../../helpers/isInvalidValue";
 import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
 
-// TODO signature
-
 App.get("/session/minecraft/hasJoined", async (request, response) => {
     const data = request.query;
 
@@ -16,7 +14,7 @@ App.get("/session/minecraft/hasJoined", async (request, response) => {
 
     // TODO
     // Если IP указан
-    if (data.ip && ("string" !== typeof data.ip || data.ip.length === 0)) {
+    if (data.ip && isInvalidValue(data.ip)) {
         return response.status(400).end();
     }
 

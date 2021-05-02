@@ -5,8 +5,6 @@ import { User } from "../../entity/User";
 import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
 
-// TODO проверка unsigned в запросе
-
 App.get("/session/minecraft/profile/:uuid", async (request, response) => {
     const uuid = request.params.uuid;
 
