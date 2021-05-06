@@ -10,32 +10,25 @@ export function generateKeys(): void {
         return console.log("Keys exists, skip generate");
 
     if (!fs.existsSync(keysDir)) fs.mkdirSync(keysDir);
-    crypto.generateKeyPair(
-        "rsa",
-        {
-            modulusLength: 4096,
-            publicKeyEncoding: {
-                type: "spki",
-                format: "der",
-            },
-            privateKeyEncoding: {
-                type: "pkcs8",
-                format: "pem",
-            },
+    const keys = crypto.generateKeyPairSync("rsa", {
+        modulusLength: 4096,
+        publicKeyEncoding: {
+            type: "pkcs1",
+            format: "der",
         },
-        (err, publicKey, privateKey) => {
-            if (err) return console.error(err);
+        privateKeyEncoding: {
+            type: "pkcs8",
+            format: "pem",
+        },
+    });
 
-            fs.writeFile(privateKeyPath, privateKey, () =>
-                console.log("Private key saved")
-            );
-            fs.writeFile(
-                path.join(keysDir, "yggdrasil_session_pubkey.der"),
-                publicKey,
-                () => console.log("Public key saved")
-            );
-        }
+    fs.writeFileSync(privateKeyPath, keys.privateKey);
+    console.log("Private key saved");
+    fs.writeFileSync(
+        path.join(keysDir, "yggdrasil_session_pubkey.der"),
+        keys.publicKey
     );
+    console.log("Public key saved");
 }
 
 export function getSignature(data: Buffer) {
