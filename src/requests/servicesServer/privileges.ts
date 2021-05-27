@@ -28,6 +28,9 @@ App.get("/privileges", async (requset, response) => {
             multiplayerRealms: {
                 enabled: user.multiplayerRealms,
             },
+            telemetry: {
+                enabled: user.telemetry,
+            },
         },
     });
 });

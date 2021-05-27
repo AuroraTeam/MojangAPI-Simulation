@@ -37,4 +37,7 @@ export class User {
 
     @Column({ width: 1, default: true })
     multiplayerRealms: boolean;
+
+    @Column({ width: 1, default: true })
+    telemetry: boolean;
 }
