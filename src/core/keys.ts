@@ -13,7 +13,7 @@ export function generateKeys(): void {
     const keys = crypto.generateKeyPairSync("rsa", {
         modulusLength: 4096,
         publicKeyEncoding: {
-            type: "pkcs1",
+            type: "spki",
             format: "der",
         },
         privateKeyEncoding: {
