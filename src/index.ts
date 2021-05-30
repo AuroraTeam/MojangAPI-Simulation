@@ -8,3 +8,4 @@ generateKeys();
 
 import "./requests/sessionServer";
 import "./requests/servicesServer";
+import "./requests/accountsServer";
