@@ -50,8 +50,10 @@ App.get("/session/minecraft/profile/:uuid", async (request, response) => {
 
     const signed = request.query.unsigned === "false";
     if (signed) texturesValue.signatureRequired = true;
-    texturesValue = Buffer.from(JSON.stringify(texturesValue));
-    data.properties[0].value = texturesValue.toString("base64");
+    texturesValue = Buffer.from(JSON.stringify(texturesValue)).toString(
+        "base64"
+    );
+    data.properties[0].value = texturesValue;
     if (signed) data.properties[0].signature = getSignature(texturesValue);
     response.json(data);
 });

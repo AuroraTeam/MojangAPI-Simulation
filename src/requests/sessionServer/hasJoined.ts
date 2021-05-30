@@ -49,7 +49,7 @@ App.get("/session/minecraft/hasJoined", async (request, response) => {
             signatureRequired: true,
             textures,
         })
-    );
+    ).toString("base64");
 
     response.json({
         id: userUUID,
@@ -57,7 +57,7 @@ App.get("/session/minecraft/hasJoined", async (request, response) => {
         properties: [
             {
                 name: "textures",
-                value: texturesValue.toString("base64"),
+                value: texturesValue,
                 signature: getSignature(texturesValue),
             },
         ],

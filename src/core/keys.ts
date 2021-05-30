@@ -31,8 +31,10 @@ export function generateKeys(): void {
     console.log("Public key saved");
 }
 
-export function getSignature(data: Buffer) {
-    return crypto
-        .privateEncrypt(fs.readFileSync(privateKeyPath), data)
-        .toString("base64");
+export function getSignature(data: string) {
+    // Рабочие варики: 'RSA-SHA1', 'RSA-SHA1-2', 'sha1', 'sha1WithRSAEncryption'
+    const sign = crypto.createSign("RSA-SHA1");
+    sign.update(data);
+    sign.end();
+    return sign.sign(fs.readFileSync(privateKeyPath), "base64");
 }
