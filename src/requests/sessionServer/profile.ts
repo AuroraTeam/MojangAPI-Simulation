@@ -2,13 +2,18 @@ import { getRepository } from "typeorm";
 
 import { getSignature } from "../../core/keys";
 import { User } from "../../entity/User";
+import { returnError } from "../../helpers/errorHelper";
 import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
 
 App.get("/session/minecraft/profile/:uuid", async (request, response) => {
     const uuid = request.params.uuid;
 
-    if (uuid.trim().length === 0) return response.status(400).end();
+    if (uuid.trim().length !== 32)
+        return returnError({
+            response,
+            error: "Bad Request",
+        });
 
     const userRepository = getRepository(User);
     const user = await userRepository.findOne({
@@ -16,7 +21,7 @@ App.get("/session/minecraft/profile/:uuid", async (request, response) => {
             userUUID: UUIDHelper.getWithDashes(uuid),
         },
     });
-    if (!user) return response.status(400).end(); // User not found
+    if (!user) return response.status(204).end();
 
     const textures: any = {};
     if (user.skinUrl.length > 0) {

@@ -1,6 +1,7 @@
 import { In, getRepository } from "typeorm";
 
 import { User } from "../../entity/User";
+import { returnError } from "../../helpers/errorHelper";
 import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
 
@@ -11,7 +12,8 @@ App.post("/profiles/minecraft", async (request, response) => {
         return response.status(400).end();
 
     if (data.length >= 10) {
-        return response.json({
+        return returnError({
+            response,
             error: "IllegalArgumentException",
             errorMessage: "Not more that 10 profile name per call is allowed.",
         });

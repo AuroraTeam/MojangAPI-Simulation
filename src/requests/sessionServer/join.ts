@@ -1,6 +1,7 @@
 import { getRepository } from "typeorm";
 
 import { User } from "../../entity/User";
+import { returnError } from "../../helpers/errorHelper";
 import { isInvalidValue } from "../../helpers/isInvalidValue";
 import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
@@ -13,7 +14,10 @@ App.post("/session/minecraft/join", async (request, response) => {
         isInvalidValue(data.selectedProfile) ||
         isInvalidValue(data.serverId)
     )
-        return response.status(400).end();
+        return returnError({
+            response,
+            error: "Bad Request",
+        });
 
     const userRepository = getRepository(User);
     const user = await userRepository.findOne({
@@ -23,7 +27,12 @@ App.post("/session/minecraft/join", async (request, response) => {
         },
     });
 
-    if (!user) return response.status(400).end(); // User not found
+    if (!user)
+        return returnError({
+            response,
+            error: "ForbiddenOperationException",
+            errorMessage: "Invalid credentials. Invalid username or password.",
+        });
 
     user.serverId = data.serverId;
     await userRepository.save(user);
