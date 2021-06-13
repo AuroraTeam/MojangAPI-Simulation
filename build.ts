@@ -5,7 +5,7 @@ import { generateKeys } from "./src/core/keys";
 
 generateKeys();
 
-if (!fs.existsSync("./authlib")) {
+if (!fs.existsSync("./authlib/src")) {
     execSync("git submodule init");
     execSync("git submodule update");
 }
