@@ -22,8 +22,4 @@
 
 ## Стек
 
-Node.js, Typescrypt, Express, TypeORM
-
-### Возможно в планах
-
-Изучение и переход на Fastify
+Node.js, Typescrypt, Fastify, TypeORM

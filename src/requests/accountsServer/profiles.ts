@@ -1,22 +1,21 @@
 import { In, getRepository } from "typeorm";
 
 import { User } from "../../entity/User";
-import { returnError } from "../../helpers/errorHelper";
 import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
 
-App.post("/profiles/minecraft", async (request, response) => {
+App.post("/profiles/minecraft", async (request, reply) => {
     const data = request.body;
+    reply.code(400);
 
     if ("object" !== typeof data || !Array.isArray(data) || data.length === 0)
-        return response.status(400).end();
+        throw undefined;
 
     if (data.length >= 10) {
-        return returnError({
-            response,
+        throw {
             error: "IllegalArgumentException",
             errorMessage: "Not more that 10 profile name per call is allowed.",
-        });
+        };
     }
 
     const userRepository = getRepository(User);
@@ -27,13 +26,9 @@ App.post("/profiles/minecraft", async (request, response) => {
         },
     });
 
-    const result: any = [];
-    users.forEach((user) => {
-        result.push({
-            id: UUIDHelper.getWithoutDashes(user.userUUID),
-            name: user.username,
-        });
-    });
-
-    response.json(result);
+    reply.code(200);
+    return users.map((user) => ({
+        id: UUIDHelper.getWithoutDashes(user.userUUID),
+        name: user.username,
+    }));
 });

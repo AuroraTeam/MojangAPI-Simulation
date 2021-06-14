@@ -9,7 +9,7 @@ const privateKey = fs.readFileSync(privateKeyPath);
 
 export function generateKeys(): void {
     if (fs.existsSync(privateKeyPath) && fs.existsSync(publicKeyPath))
-        return console.log("Keys exists, skip generate");
+        return console.log("[Key Manager] Keys exists, skip generate");
 
     if (!fs.existsSync(keysDir)) fs.mkdirSync(keysDir);
     const keys = crypto.generateKeyPairSync("rsa", {
@@ -25,14 +25,13 @@ export function generateKeys(): void {
     });
 
     fs.writeFileSync(privateKeyPath, keys.privateKey);
-    console.log("Private key saved");
+    console.log("[Key Manager] Private key saved");
     fs.writeFileSync(publicKeyPath, keys.publicKey);
-    console.log("Public key saved");
+    console.log("[Key Manager] Public key saved");
 }
 
 export function getSignature(data: string) {
-    // Рабочие варики: 'RSA-SHA1', 'RSA-SHA1-2', 'sha1', 'sha1WithRSAEncryption'
-    const sign = crypto.createSign("RSA-SHA1");
+    const sign = crypto.createSign("sha1");
     sign.update(data);
     sign.end();
     return sign.sign(privateKey, "base64");

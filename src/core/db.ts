@@ -2,9 +2,10 @@ import "reflect-metadata";
 
 import { createConnection } from "typeorm";
 
+console.log("[DB] Start connection.");
 createConnection({
     type: "mysql",
-    host: "localhost",
+    host: "127.0.0.1",
     port: 3306,
     username: "root",
     password: "root",
@@ -14,8 +15,8 @@ createConnection({
     logging: false,
 })
     .then((_) => {
-        console.log("Connection has been established successfully.");
+        console.log("[DB] Connection has been established successfully.");
     })
     .catch((err) => {
-        console.error("Unable to connect to the database:", err);
+        console.error("[DB] Unable to connect to the database:", err);
     });

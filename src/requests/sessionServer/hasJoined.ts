@@ -6,17 +6,16 @@ import { isInvalidValue } from "../../helpers/isInvalidValue";
 import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
 
-App.get("/session/minecraft/hasJoined", async (request, response) => {
-    const data = request.query;
+App.get("/session/minecraft/hasJoined", async (request, reply) => {
+    const data: any = request.query;
+    reply.code(400);
 
     if (isInvalidValue(data.username) || isInvalidValue(data.serverId))
-        return response.status(400).end();
+        throw undefined;
 
     // TODO
     // Если IP указан
-    if (data.ip && isInvalidValue(data.ip)) {
-        return response.status(400).end();
-    }
+    if (data.ip && isInvalidValue(data.ip)) throw undefined;
 
     const userRepository = getRepository(User);
     const user = await userRepository.findOne({
@@ -25,7 +24,7 @@ App.get("/session/minecraft/hasJoined", async (request, response) => {
             serverId: data.serverId,
         },
     });
-    if (!user) return response.status(400).end(); // User not found
+    if (!user) throw undefined; // User not found
 
     const userUUID = UUIDHelper.getWithoutDashes(user.userUUID);
 
@@ -51,7 +50,8 @@ App.get("/session/minecraft/hasJoined", async (request, response) => {
         })
     ).toString("base64");
 
-    response.json({
+    reply.code(200);
+    return {
         id: userUUID,
         name: user.username,
         properties: [
@@ -61,5 +61,5 @@ App.get("/session/minecraft/hasJoined", async (request, response) => {
                 signature: getSignature(texturesValue),
             },
         ],
-    });
+    };
 });

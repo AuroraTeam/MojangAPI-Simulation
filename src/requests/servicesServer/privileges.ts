@@ -3,11 +3,12 @@ import { getRepository } from "typeorm";
 import { User } from "../../entity/User";
 import App from "../../index";
 
-App.get("/privileges", async (requset, response) => {
+App.get("/privileges", async (requset, reply) => {
     const accessToken = requset.headers.authorization;
+    reply.code(400);
 
     if ("string" !== typeof accessToken || accessToken.length === 0)
-        return response.status(400).end();
+        throw undefined;
 
     const userRepository = getRepository(User);
     const user = await userRepository.findOne({
@@ -15,9 +16,10 @@ App.get("/privileges", async (requset, response) => {
             accessToken: accessToken.slice(7),
         },
     });
-    if (!user) return response.status(400).end(); // User not found
+    if (!user) throw undefined; // User not found
 
-    response.json({
+    reply.code(200);
+    return {
         privileges: {
             onlineChat: {
                 enabled: user.onlineChat,
@@ -32,5 +34,5 @@ App.get("/privileges", async (requset, response) => {
                 enabled: user.telemetry,
             },
         },
-    });
+    };
 });

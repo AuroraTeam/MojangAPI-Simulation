@@ -2,18 +2,17 @@ import { getRepository } from "typeorm";
 
 import { getSignature } from "../../core/keys";
 import { User } from "../../entity/User";
-import { returnError } from "../../helpers/errorHelper";
 import UUIDHelper from "../../helpers/UUIDHelper";
 import App from "../../index";
 
-App.get("/session/minecraft/profile/:uuid", async (request, response) => {
-    const uuid = request.params.uuid;
+App.get("/session/minecraft/profile/:uuid", async (request, reply) => {
+    const uuid = (request.params as any).uuid;
+    reply.code(400);
 
     if (uuid.trim().length !== 32)
-        return returnError({
-            response,
+        throw {
             error: "Bad Request",
-        });
+        };
 
     const userRepository = getRepository(User);
     const user = await userRepository.findOne({
@@ -21,7 +20,10 @@ App.get("/session/minecraft/profile/:uuid", async (request, response) => {
             userUUID: UUIDHelper.getWithDashes(uuid),
         },
     });
-    if (!user) return response.status(204).end();
+    if (!user) {
+        reply.code(204);
+        throw undefined;
+    }
 
     const textures: any = {};
     if (user.skinUrl.length > 0) {
@@ -53,12 +55,12 @@ App.get("/session/minecraft/profile/:uuid", async (request, response) => {
         ],
     };
 
-    const signed = request.query.unsigned === "false";
+    const signed = (request.query as any).unsigned === "false";
     if (signed) texturesValue.signatureRequired = true;
     texturesValue = Buffer.from(JSON.stringify(texturesValue)).toString(
         "base64"
     );
     data.properties[0].value = texturesValue;
     if (signed) data.properties[0].signature = getSignature(texturesValue);
-    response.json(data);
+    return data;
 });

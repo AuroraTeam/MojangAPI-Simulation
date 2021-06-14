@@ -1,3 +1,5 @@
+console.log('Starting...');
+
 import "./core/db";
 
 import App from "./core/main";

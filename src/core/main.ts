@@ -1,21 +1,18 @@
-import cors from "cors";
-import express from "express";
+import fastify from "fastify";
 
-const app = express();
-app.set("trust proxy", true);
-app.disable("x-powered-by");
-app.use(express.json());
-app.use(cors());
+const app = fastify();
 
-// For requests debug
-app.use((req, _, next) => {
-    console.log(`[${req.method}] ${req.url}`);
-    next();
-});
+// app.addHook("onRequest", (req, _, done) => {
+//     console.log(`[${req.method}] ${req.url}`);
+//     done();
+// });
 
-const port = 4000;
-app.listen(port, () => {
-    console.log(`API Server listening at ${port} port`);
+app.listen(4000, (err, address) => {
+    if (err) {
+        console.error(`[WebServer] ${err}`);
+        process.exit(1);
+    }
+    console.log(`[WebServer] Server listening at ${address}`);
 });
 
 export default app;
