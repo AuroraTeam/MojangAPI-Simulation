@@ -7,4 +7,4 @@
     Эмуляция:
     - https://api.mojang.com/profiles/minecraft
 */
-import "./accountsServer/profiles";
+import "./accountsHost/profiles";

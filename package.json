@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "ts-node .",
-    "dev": "nodemon --watch src -e ts --exec \"./node_modules/.bin/ts-node .\"",
+    "dev": "nodemon --watch src -e ts --exec \"npm start\"",
     "prettier": "prettier --write src",
     "build-authlib": "ts-node build.ts"
   },
@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/AuroraTeam/MojangAPI-Simulation#readme",
   "dependencies": {
-    "fastify": "^3.17.0",
+    "dotenv": "^10.0.0",
+    "fastify": "^3.18.0",
+    "fastify-swagger": "^4.7.0",
     "mysql2": "^2.2.5",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.34"

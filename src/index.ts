@@ -8,6 +8,6 @@ export default App;
 import { generateKeys } from "./core/keys";
 generateKeys();
 
-import "./requests/sessionServer";
-import "./requests/servicesServer";
-import "./requests/accountsServer";
+import "./requests/sessionHost";
+import "./requests/servicesHost";
+import "./requests/accountsHost";

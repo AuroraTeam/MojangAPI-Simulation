@@ -7,4 +7,4 @@
     Эмуляция:
     - https://api.minecraftservices.com/privileges
 */
-import "./servicesServer/privileges";
+import "./servicesHost/privileges";
