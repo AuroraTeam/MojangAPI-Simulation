@@ -5,7 +5,7 @@ import path from "path";
 const keysDir = path.join(__dirname, "../../keys");
 const privateKeyPath = path.join(keysDir, "private.pem");
 const publicKeyPath = path.join(keysDir, "yggdrasil_session_pubkey.der");
-const privateKey = fs.readFileSync(privateKeyPath);
+let privateKey: string;
 
 export function generateKeys(): void {
     if (fs.existsSync(privateKeyPath) && fs.existsSync(publicKeyPath))
@@ -28,6 +28,10 @@ export function generateKeys(): void {
     console.log("[Key Manager] Private key saved");
     fs.writeFileSync(publicKeyPath, keys.publicKey);
     console.log("[Key Manager] Public key saved");
+}
+
+export function setKey() {
+    privateKey = fs.readFileSync(privateKeyPath).toString();
 }
 
 export function getSignature(data: string) {
