@@ -6,8 +6,7 @@
   "scripts": {
     "start": "ts-node .",
     "dev": "nodemon --watch src -e ts --exec \"./node_modules/.bin/ts-node .\"",
-    "prettier": "prettier --write src",
-    "build-authlib": "ts-node build.ts"
+    "prettier": "prettier --write src"
   },
   "repository": {
     "type": "git",
