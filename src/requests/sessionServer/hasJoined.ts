@@ -2,7 +2,7 @@ import { getRepository } from "typeorm";
 
 import { getSignature } from "../../core/keys";
 import { App } from "../../core/main";
-import { User } from "../../entity/User";
+import { User } from "../../entities/User";
 import { isInvalidValue } from "../../helpers/isInvalidValue";
 import { UUIDHelper } from "../../helpers/UUIDHelper";
 

@@ -1,7 +1,7 @@
 import { getRepository } from "typeorm";
 
 import { App } from "../../core/main";
-import { User } from "../../entity/User";
+import { User } from "../../entities/User";
 
 App.get("/privileges", async (requset, reply) => {
     const accessToken = requset.headers.authorization;

@@ -3,7 +3,7 @@ import { randomUUID } from "crypto";
 import { getRepository } from "typeorm";
 
 import { App } from "../../core/main";
-import { User } from "../../entity/User";
+import { User } from "../../entities/User";
 import { isInvalidValue } from "../../helpers/isInvalidValue";
 
 App.post("/authenticate", async (request, reply) => {
