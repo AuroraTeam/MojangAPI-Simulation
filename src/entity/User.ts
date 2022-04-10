@@ -16,6 +16,9 @@ export class User {
     userUUID: string;
 
     @Column()
+    clientToken: string;
+
+    @Column()
     accessToken: string;
 
     @Column()

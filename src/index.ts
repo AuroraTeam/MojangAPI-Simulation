@@ -12,3 +12,4 @@ setKey();
 import "./requests/sessionServer";
 import "./requests/servicesServer";
 import "./requests/accountsServer";
+import "./requests/authServer";
