@@ -1,10 +1,10 @@
 import { getRepository } from "typeorm";
 
 import { getSignature } from "../../core/keys";
+import { App } from "../../core/main";
 import { User } from "../../entity/User";
 import { isInvalidValue } from "../../helpers/isInvalidValue";
-import UUIDHelper from "../../helpers/UUIDHelper";
-import App from "../../index";
+import { UUIDHelper } from "../../helpers/UUIDHelper";
 
 App.get("/session/minecraft/hasJoined", async (request, reply) => {
     const data: any = request.query;

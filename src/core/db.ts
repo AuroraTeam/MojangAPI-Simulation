@@ -19,4 +19,5 @@ createConnection({
     })
     .catch((err) => {
         console.error("[DB] Unable to connect to the database:", err);
+        process.exit(1);
     });

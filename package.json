@@ -1,8 +1,10 @@
 {
   "name": "mojangapi-simulation",
-  "version": "0.3.0-dev",
-  "description": "",
+  "version": "0.3.0",
   "main": "src/index.ts",
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "scripts": {
     "start": "ts-node .",
     "dev": "nodemon --watch src -e ts --exec \"./node_modules/.bin/ts-node .\"",
@@ -19,13 +21,14 @@
   },
   "homepage": "https://github.com/AuroraTeam/MojangAPI-Simulation#readme",
   "dependencies": {
+    "dotenv": "^16.0.0",
     "fastify": "^3.17.0",
     "mysql2": "^2.2.5",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.34"
   },
   "devDependencies": {
-    "@types/node": "^15.12.2",
+    "@types/node": "^16.11.26",
     "import-sort-style-module": "^6.0.0",
     "nodemon": "^2.0.7",
     "prettier": "^2.3.1",

@@ -1,8 +1,8 @@
 import { In, getRepository } from "typeorm";
 
+import { App } from "../../core/main";
 import { User } from "../../entity/User";
-import UUIDHelper from "../../helpers/UUIDHelper";
-import App from "../../index";
+import { UUIDHelper } from "../../helpers/UUIDHelper";
 
 App.post("/profiles/minecraft", async (request, reply) => {
     const data = request.body;

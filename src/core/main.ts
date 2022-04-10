@@ -1,13 +1,17 @@
 import fastify from "fastify";
 
-const app = fastify();
+import { config } from "./config";
 
-// app.addHook("onRequest", (req, _, done) => {
-//     console.log(`[${req.method}] ${req.url}`);
-//     done();
-// });
+const App = fastify();
 
-app.listen(4000, (err, address) => {
+if (config.DEV) {
+    App.addHook("onRequest", (req, _, done) => {
+        console.log(`[${req.method}] ${req.url}`);
+        done();
+    });
+}
+
+App.listen(config.SERVER_PORT, config.SERVER_HOST, (err, address) => {
     if (err) {
         console.error(`[WebServer] ${err}`);
         process.exit(1);
@@ -15,4 +19,4 @@ app.listen(4000, (err, address) => {
     console.log(`[WebServer] Server listening at ${address}`);
 });
 
-export default app;
+export { App };

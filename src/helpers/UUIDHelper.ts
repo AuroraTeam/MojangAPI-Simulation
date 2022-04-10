@@ -1,4 +1,4 @@
-export default class UUIDHelper {
+export class UUIDHelper {
     /**
      * @param uuid UUID with dashes
      * @returns UUID without dashes

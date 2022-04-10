@@ -1,9 +1,9 @@
 import { getRepository } from "typeorm";
 
+import { App } from "../../core/main";
 import { User } from "../../entity/User";
 import { isInvalidValue } from "../../helpers/isInvalidValue";
-import UUIDHelper from "../../helpers/UUIDHelper";
-import App from "../../index";
+import { UUIDHelper } from "../../helpers/UUIDHelper";
 
 App.post("/session/minecraft/join", async (request, reply) => {
     let data: any = request.body;

@@ -13,11 +13,13 @@
 
 где {host} - адрес вашего API сервера.
 
-Также добавлен параметр `-Dminecraft.api.skins.domain` для указания своего сайта с скинами/плащами в список разрешённых.
-Для работы нужно указать домен второго уровня, например:
+Например:
 
 ```
--Dminecraft.api.skins.domain=.mojang.com
+-Dminecraft.api.auth.host=https://api.example.ru/
+-Dminecraft.api.account.host=https://api.example.ru/
+-Dminecraft.api.session.host=https://api.example.ru/
+-Dminecraft.api.services.host=https://api.example.ru/
 ```
 
 ## Стек
